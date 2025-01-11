@@ -1,10 +1,11 @@
 const express = require('express');
 const morgan = require('morgan');
+const userModel = require('./models/users')
+const dbConnection = require('./config/db')
 
 const app = express();
 
 app.set('view engine', 'ejs');
-
 
 // Logger middleware (third-party)
 app.use(morgan('dev'));
