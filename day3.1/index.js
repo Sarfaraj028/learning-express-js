@@ -37,6 +37,38 @@ app.post('/submitted-data', async (req, res) => {
     res.send(user); // Respond back to the client
 });
 
+//get users /find user
+app.get('/get-users', async (req, res) => {
+    try {
+        const users = await userModel.findOne({
+            email: "kalu@gmai.comskbvksbh"
+        }); // Retrieve all users 
+        res.json(users); // Respond with the list of users
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).send({ error: 'Failed to retrieve users' });
+    }
+});
+
+// find and update user 
+app.get("/update-users", async (req, res) =>{
+        await userModel.findOneAndUpdate({
+            username: 'salman'
+        },{
+            email: 'sallu2@gmail.com'
+        })
+        res.send("updated")
+        
+})
+
+app.get("/delete-users", async (req, res) =>{
+    await userModel.findOneAndDelete ({ // method is used to find and delerte the data
+        username: 'saif`'
+    })
+    res.send("data deleted")
+    
+})
+
 // Start the server
 app.listen(8000, () => {
     console.log('Server started on http://localhost:8000');
