@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const userModel = require('./models/users')
-const dbConnection = require('./config/db')
+const connection = require('./config/db')
 
 const app = express();
 
@@ -17,14 +17,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 // Serve the index page
-app.get('/', (req, res) => {
+app.get('/register', (req, res) => {
     res.render('index');  // Make sure you have the 'index.ejs' file in your 'views' folder
 });
 
-app.post('/submitted-data', (req, res) => {
+app.get('/', (req, res) => {
+    res.send("Home page")
+});
+
+app.post('/submitted-data', async (req, res) => {
     console.log('Request Body:', req.body);
 
-    res.send('Data Received!'); // Respond back to the client
+    const {username, email, password} = req.body;
+    const user = await userModel.create({
+        username: username,
+        email: email,
+        password: password
+    })
+    res.send(user); // Respond back to the client
 });
 
 // Start the server
