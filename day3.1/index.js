@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const userModel = require('./models/users')
 const connection = require('./config/db')
+const bcrypt = require('bcrypt')
 
 const app = express();
 
@@ -29,10 +30,11 @@ app.post('/submitted-data', async (req, res) => {
     console.log('Request Body:', req.body);
 
     const {username, email, password} = req.body;
+    const hashedPass = await bcrypt.hash(password, 10)
     const user = await userModel.create({
         username: username,
         email: email,
-        password: password
+        password: hashedPass
     })
     res.send(user); // Respond back to the client
 });
