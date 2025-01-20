@@ -31,6 +31,7 @@ app.post('/submitted-data', async (req, res) => {
 
     const {username, email, password} = req.body;
     const hashedPass = await bcrypt.hash(password, 10)
+    
     const user = await userModel.create({
         username: username,
         email: email,
@@ -64,7 +65,7 @@ app.get("/update-users", async (req, res) =>{
 })
 
 app.get("/delete-users", async (req, res) =>{
-    await userModel.findOneAndDelete ({ // method is used to find and delerte the data
+    await userModel.findOneAndDelete({ // method is used to find and delerte the data
         username: 'saif`'
     })
     res.send("data deleted")
