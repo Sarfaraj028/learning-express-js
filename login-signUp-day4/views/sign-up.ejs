@@ -7,9 +7,10 @@
 </head>
 <body>
     <h2>Register here...</h2>
-    <form action="/" method="post">
-        <input type="text" name="username" placeholder="name" />
-        <input type="password" name="password" placeholder="password" />
+    <form action="/sign-up" method="post">
+        <input type="text" name="username" placeholder="name" required /> <br>
+        <input type="email" name="email" placeholder="Email" required /> <br>
+        <input type="password" name="password" placeholder="password" required /> <br>
         <button>Register</button>
     </form>
 </body>
